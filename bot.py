@@ -14,7 +14,7 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 client = discord.Client()
 
 
-@tasks.loop(seconds=5)
+@tasks.loop(seconds=30)
 async def fetch_price():
     response = requests.get('https://api.png.fi/prices/BUD')
     await client.user.edit(username=str(round(response.json()['BUD'], 2)) + ' PAI')
