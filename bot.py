@@ -17,7 +17,12 @@ client = discord.Client()
 @tasks.loop(seconds=30)
 async def fetch_price():
     response = requests.get('https://api.png.fi/prices/BUD')
-    await client.user.edit(username=str(round(response.json()['BUD'], 2)) + ' PAI')
+    
+    for guild in client.guilds:
+        if guild.name == 'BunnyDucky':
+           bot =  guild.get_member(user_id=client.user.id)
+           await bot.edit(nick=str(round(response.json()['BUD'], 2)) + ' PAI')
+    
     print(
         f"{response.json()['BUD']} PAI @ {time.asctime( time.localtime(time.time()) )}")
 
